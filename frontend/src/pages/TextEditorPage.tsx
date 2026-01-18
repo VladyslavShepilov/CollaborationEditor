@@ -1,13 +1,10 @@
 import { useRef } from "react";
-import { EditableText } from "@/shared/components/EditableText";
+import { EditableText } from "@/widgets/text-editor";
 
 export function TextEditorPage() {
-  const textRef = useRef<string>("Hello, world!");
+  const textRef = useRef<string>("");
 
   return (
-    <EditableText
-      initialText="Hello, world!"
-      onInput={(text) => (textRef.current = text)}
-    />
+    <EditableText initialText="" onInput={(text) => (textRef.current = text)} />
   );
 }

@@ -1,23 +1,25 @@
 import { useTheme } from "@/shared/utils/useTheme";
 
-interface GalleryItemProps {
-  image: string;
+interface DocumentCardProps {
+  id: string;
   title: string;
   description: string;
-  onClick?: () => void;
+  previewImage?: string;
+  onClick?: (id: string) => void;
 }
 
-export function GalleryItem({
-  image,
+export function DocumentCard({
+  id,
   title,
   description,
+  previewImage,
   onClick,
-}: GalleryItemProps) {
+}: DocumentCardProps) {
   const { isDark } = useTheme();
 
   return (
     <div
-      onClick={onClick}
+      onClick={() => onClick?.(id)}
       className={`
         aspect-square w-full
         rounded-xl p-4
@@ -32,11 +34,23 @@ export function GalleryItem({
       `}
     >
       <div className="flex-1 flex items-center justify-center overflow-hidden rounded-lg w-full">
-        <img
-          className="w-full h-full object-cover rounded-lg"
-          src={image}
-          alt={title}
-        />
+        {previewImage ? (
+          <img
+            className="w-full h-full object-cover rounded-lg"
+            src={previewImage}
+            alt={title}
+          />
+        ) : (
+          <div
+            className={`w-full h-full rounded-lg flex items-center justify-center ${
+              isDark ? "bg-gray-700" : "bg-gray-100"
+            }`}
+          >
+            <span className={isDark ? "text-gray-500" : "text-gray-400"}>
+              No preview
+            </span>
+          </div>
+        )}
       </div>
       <div className="w-full text-center space-y-1">
         <h2

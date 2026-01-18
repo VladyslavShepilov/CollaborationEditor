@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { TextEditorPage } from "@/pages/TextEditorPages/TextEditorPage";
-import { GalleryPage } from "@/pages/TextEditorPages/GalleryPage";
+import { GalleryPage, EditorPage } from "@/pages/text-editor";
 
 export const router = createBrowserRouter([
   {
@@ -9,6 +8,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "/editor/:id",
-    element: <TextEditorPage />,
+    element: <EditorPage />,
   },
 ]);

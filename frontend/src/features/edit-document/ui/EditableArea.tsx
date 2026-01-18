@@ -1,11 +1,14 @@
 import { useTheme } from "@/shared/utils/useTheme";
 
-interface EditableTextProps {
-  initialText: string;
-  onInput: (text: string) => void;
+interface EditableAreaProps {
+  initialContent: string;
+  onContentChange: (content: string) => void;
 }
 
-export function EditableText({ initialText, onInput }: EditableTextProps) {
+export function EditableArea({
+  initialContent,
+  onContentChange,
+}: EditableAreaProps) {
   const { isDark } = useTheme();
 
   return (
@@ -23,10 +26,10 @@ export function EditableText({ initialText, onInput }: EditableTextProps) {
         contentEditable={true}
         suppressContentEditableWarning={true}
         onInput={(e: React.FormEvent<HTMLDivElement>) => {
-          onInput(e.currentTarget.innerText);
+          onContentChange(e.currentTarget.innerText);
         }}
       >
-        {initialText}
+        {initialContent}
       </div>
     </div>
   );

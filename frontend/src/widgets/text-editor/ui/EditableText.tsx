@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/shared/lib/redux";
+import { useTheme } from "@/shared/utils/useTheme";
 
 interface EditableTextProps {
   initialText: string;
@@ -6,8 +6,7 @@ interface EditableTextProps {
 }
 
 export function EditableText({ initialText, onInput }: EditableTextProps) {
-  const theme = useAppSelector((state) => state.theme.mode);
-  const isDark = theme === "dark";
+  const { isDark } = useTheme();
 
   return (
     <div

@@ -1,6 +1,7 @@
-import { TextEditorPage } from "@/pages";
+import { RouterProvider } from "react-router";
+import { router } from "./AppRouter";
 import "./App.css";
 
 export function App() {
-  return <TextEditorPage />;
+  return <RouterProvider router={router} />;
 }

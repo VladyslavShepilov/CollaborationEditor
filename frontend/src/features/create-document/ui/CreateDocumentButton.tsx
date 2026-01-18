@@ -24,12 +24,11 @@ export function CreateDocumentButton({ onCreate }: CreateDocumentButtonProps) {
         New Document
       </button>
 
-      {isOpen && (
-        <CreateDocumentModal
-          onClose={() => setIsOpen(false)}
-          onCreate={onCreate}
-        />
-      )}
+      <CreateDocumentModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onCreate={onCreate}
+      />
     </>
   );
 }

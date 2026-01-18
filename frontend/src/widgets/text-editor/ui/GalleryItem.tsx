@@ -19,8 +19,7 @@ export function GalleryItem({
     <div
       onClick={onClick}
       className={`
-        aspect-square w-full min-w-[140px] max-w-[280px]
-        sm:min-w-[180px] sm:max-w-[320px]
+        aspect-square w-full
         rounded-xl p-4
         flex flex-col items-center justify-between gap-2
         cursor-pointer transition-all duration-200

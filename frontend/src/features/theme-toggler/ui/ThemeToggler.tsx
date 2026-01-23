@@ -6,28 +6,17 @@ export function ThemeToggler({
   lightBackground,
   darkBackground,
   className = "",
-  transitionDurationMs = 400,
 }: ThemeTogglerProps) {
   const { isLight, toggleTheme } = useTheme();
 
   return (
     <div className={`relative overflow-hidden rounded ${className}`}>
       {lightBackground && (
-        <FadeLayer
-          visible={isLight}
-          transitionDurationMs={transitionDurationMs}
-        >
-          {lightBackground}
-        </FadeLayer>
+        <FadeLayer visible={isLight}>{lightBackground}</FadeLayer>
       )}
 
       {darkBackground && (
-        <FadeLayer
-          visible={!isLight}
-          transitionDurationMs={transitionDurationMs}
-        >
-          {darkBackground}
-        </FadeLayer>
+        <FadeLayer visible={!isLight}>{darkBackground}</FadeLayer>
       )}
 
       <div className="relative z-10 p-2">

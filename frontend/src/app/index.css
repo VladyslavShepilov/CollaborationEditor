@@ -12,6 +12,9 @@
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-heading: "Inter", system-ui, -apple-system, sans-serif;
 
+  /* === TRANSITIONS === */
+  --transition-theme: 300ms; /* Theme switch duration - change this to speed up/slow down */
+
   /* === LIGHT THEME COLORS === */
   /* Backgrounds */
   --color-surface-light: #fffdf7; /* Warm cream */

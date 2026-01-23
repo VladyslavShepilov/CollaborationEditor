@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import type { CSSProperties } from "react";
 import { createPortal } from "react-dom";
 
@@ -50,6 +50,12 @@ export function Modal({
     onClose();
   };
 
+  const onClick = (e: React.SyntheticEvent) => {
+    if (e.target === dialogRef.current) {
+      onClose();
+    }
+  };
+
   const dialogStyle: CSSProperties = {
     backgroundColor: mergedStyles.backgroundColor,
     borderColor: mergedStyles.borderColor,
@@ -61,9 +67,7 @@ export function Modal({
       ref={dialogRef}
       onCancel={handleCancel}
       onClick={(e) => {
-        if (e.target === dialogRef.current) {
-          onClose();
-        }
+        onClick(e);
       }}
       className={`${themeClass} fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full ${SIZE_CLASSES[size]} mx-4 rounded-xl shadow-2xl border p-0 backdrop:backdrop-blur-sm transition-colors ${className}`}
       style={{

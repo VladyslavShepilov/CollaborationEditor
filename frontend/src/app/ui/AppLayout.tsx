@@ -7,36 +7,16 @@ export function AppLayout() {
 
   return (
     <div
-      className={`min-h-screen transition-colors ${
+      className={`min-h-screen transition-colors duration-[var(--transition-theme)] bg-[var(--surface)] ${
         isLight ? "theme-light" : "theme-dark"
       }`}
-      style={{
-        backgroundColor: "var(--surface)",
-        transitionDuration: "var(--transition-theme)",
-      }}
     >
-      {/* Page content */}
       <main>
         <Outlet />
       </main>
 
-      {/* Theme toggler - fixed bottom right */}
       <div className="fixed bottom-4 right-4 z-40">
-        <ThemeToggler
-          className="shadow-lg"
-          lightBackground={
-            <div
-              className="w-full h-full rounded"
-              style={{ backgroundColor: "var(--color-accent-soft-light)" }}
-            />
-          }
-          darkBackground={
-            <div
-              className="w-full h-full rounded"
-              style={{ backgroundColor: "var(--color-accent-soft-dark)" }}
-            />
-          }
-        />
+        <ThemeToggler className="shadow-lg" />
       </div>
     </div>
   );

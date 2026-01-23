@@ -29,10 +29,7 @@ export function CreateDocumentModal({
     <Modal isOpen={isOpen} onClose={onClose} title="Create New Document">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label
-            className="block text-sm font-medium mb-1"
-            style={{ color: "var(--text-secondary)" }}
-          >
+          <label className="block text-sm font-medium mb-1 text-[var(--text-secondary)]">
             Title
           </label>
           <input
@@ -41,20 +38,12 @@ export function CreateDocumentModal({
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Document title"
             autoFocus
-            className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2 focus:ring-emerald-500"
-            style={{
-              backgroundColor: "var(--surface-alt)",
-              borderColor: "var(--border)",
-              color: "var(--text-primary)",
-            }}
+            className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2 focus:ring-emerald-500 bg-[var(--surface-alt)] border-[var(--border)] text-[var(--text-primary)]"
           />
         </div>
 
         <div>
-          <label
-            className="block text-sm font-medium mb-1"
-            style={{ color: "var(--text-secondary)" }}
-          >
+          <label className="block text-sm font-medium mb-1 text-[var(--text-secondary)]">
             Description (optional)
           </label>
           <textarea
@@ -62,12 +51,7 @@ export function CreateDocumentModal({
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Brief description"
             rows={3}
-            className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
-            style={{
-              backgroundColor: "var(--surface-alt)",
-              borderColor: "var(--border)",
-              color: "var(--text-primary)",
-            }}
+            className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2 focus:ring-emerald-500 resize-none bg-[var(--surface-alt)] border-[var(--border)] text-[var(--text-primary)]"
           />
         </div>
 
@@ -75,18 +59,13 @@ export function CreateDocumentModal({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg font-medium transition-colors hover:opacity-80"
-            style={{ color: "var(--text-secondary)" }}
+            className="px-4 py-2 rounded-lg font-medium transition-colors hover:opacity-80 text-[var(--text-secondary)]"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 rounded-lg font-medium transition-colors hover:opacity-90"
-            style={{
-              backgroundColor: "var(--accent)",
-              color: "white",
-            }}
+            className="px-4 py-2 rounded-lg font-medium transition-colors hover:opacity-90 bg-[var(--accent)] text-white"
           >
             Create
           </button>

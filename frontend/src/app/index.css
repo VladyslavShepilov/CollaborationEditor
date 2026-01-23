@@ -82,30 +82,52 @@ body {
 /* === UTILITY CLASSES FOR THEMING === */
 /* Light theme utilities */
 .theme-light {
+  /* Backgrounds */
   --surface: var(--color-surface-light);
   --surface-alt: var(--color-surface-alt-light);
   --card: var(--color-card-light);
+
+  /* Text */
   --text-primary: var(--color-text-primary-light);
   --text-secondary: var(--color-text-secondary-light);
   --text-muted: var(--color-text-muted-light);
+
+  /* Accents */
   --accent: var(--color-accent-light);
   --accent-hover: var(--color-accent-hover-light);
   --accent-soft: var(--color-accent-soft-light);
+
+  /* Borders */
   --border: var(--color-border-light);
   --border-strong: var(--color-border-strong-light);
+
+  /* Components */
+  --toggle-track: var(--color-border-light);
+  --toggle-track-active: var(--color-accent-soft-light);
 }
 
 /* Dark theme utilities */
 .theme-dark {
+  /* Backgrounds */
   --surface: var(--color-surface-dark);
   --surface-alt: var(--color-surface-alt-dark);
   --card: var(--color-card-dark);
+
+  /* Text */
   --text-primary: var(--color-text-primary-dark);
   --text-secondary: var(--color-text-secondary-dark);
   --text-muted: var(--color-text-muted-dark);
+
+  /* Accents */
   --accent: var(--color-accent-dark);
   --accent-hover: var(--color-accent-hover-dark);
   --accent-soft: var(--color-accent-soft-dark);
+
+  /* Borders */
   --border: var(--color-border-dark);
   --border-strong: var(--color-border-strong-dark);
+
+  /* Components */
+  --toggle-track: var(--color-border-dark);
+  --toggle-track-active: var(--color-accent-soft-dark);
 }

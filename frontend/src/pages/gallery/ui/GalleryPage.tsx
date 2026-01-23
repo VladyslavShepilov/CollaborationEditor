@@ -19,10 +19,7 @@ export function GalleryPage() {
   return (
     <div className="min-h-screen p-6">
       <div className="flex items-center justify-between mb-6">
-        <h1
-          className="text-2xl font-bold"
-          style={{ color: "var(--text-primary)" }}
-        >
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">
           Documents
         </h1>
         <CreateDocumentButton onCreate={handleCreateDocument} />

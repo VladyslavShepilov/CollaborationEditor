@@ -1,5 +1,8 @@
 .PHONY: dev down build update-schema-frontend
 
+up:
+	docker-compose up -d
+
 # Start development environment
 dev:
 	docker-compose up --build

@@ -1,14 +1,6 @@
 import { Toggler, FadeLayer } from "@/shared/ui";
 import { useTheme } from "@/shared/utils/useTheme";
-
-interface ThemeTogglerProps {
-  /** Optional custom background for light mode */
-  lightBackground?: React.ReactNode;
-  /** Optional custom background for dark mode */
-  darkBackground?: React.ReactNode;
-  className?: string;
-  transitionDurationMs?: number;
-}
+import type { ThemeTogglerProps } from "./types";
 
 export function ThemeToggler({
   lightBackground,

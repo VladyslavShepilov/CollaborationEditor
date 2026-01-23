@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Modal } from "@/shared/ui";
-import { useTheme } from "@/shared/utils/useTheme";
 
 interface CreateDocumentModalProps {
   isOpen: boolean;
@@ -13,7 +12,6 @@ export function CreateDocumentModal({
   onClose,
   onCreate,
 }: CreateDocumentModalProps) {
-  const { isDark } = useTheme();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -32,9 +30,8 @@ export function CreateDocumentModal({
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
-            className={`block text-sm font-medium mb-1 ${
-              isDark ? "text-gray-300" : "text-gray-700"
-            }`}
+            className="block text-sm font-medium mb-1"
+            style={{ color: "var(--text-secondary)" }}
           >
             Title
           </label>
@@ -44,19 +41,19 @@ export function CreateDocumentModal({
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Document title"
             autoFocus
-            className={`w-full px-3 py-2 rounded-lg border outline-none focus:ring-2 focus:ring-blue-500 ${
-              isDark
-                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
-            }`}
+            className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2 focus:ring-emerald-500"
+            style={{
+              backgroundColor: "var(--surface-alt)",
+              borderColor: "var(--border)",
+              color: "var(--text-primary)",
+            }}
           />
         </div>
 
         <div>
           <label
-            className={`block text-sm font-medium mb-1 ${
-              isDark ? "text-gray-300" : "text-gray-700"
-            }`}
+            className="block text-sm font-medium mb-1"
+            style={{ color: "var(--text-secondary)" }}
           >
             Description (optional)
           </label>
@@ -65,11 +62,12 @@ export function CreateDocumentModal({
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Brief description"
             rows={3}
-            className={`w-full px-3 py-2 rounded-lg border outline-none focus:ring-2 focus:ring-blue-500 resize-none ${
-              isDark
-                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
-            }`}
+            className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+            style={{
+              backgroundColor: "var(--surface-alt)",
+              borderColor: "var(--border)",
+              color: "var(--text-primary)",
+            }}
           />
         </div>
 
@@ -77,17 +75,18 @@ export function CreateDocumentModal({
           <button
             type="button"
             onClick={onClose}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              isDark
-                ? "text-gray-300 hover:bg-gray-700"
-                : "text-gray-600 hover:bg-gray-100"
-            }`}
+            className="px-4 py-2 rounded-lg font-medium transition-colors hover:opacity-80"
+            style={{ color: "var(--text-secondary)" }}
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 rounded-lg font-medium bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+            className="px-4 py-2 rounded-lg font-medium transition-colors hover:opacity-90"
+            style={{
+              backgroundColor: "var(--accent)",
+              color: "white",
+            }}
           >
             Create
           </button>

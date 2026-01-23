@@ -1,27 +1,73 @@
 @import "tailwindcss";
 
+/* ============================================
+   DESIGN SYSTEM: "Warm Nature" Palette
+
+   Light: Warm cream/yellow + emerald accents
+   Dark: Deep slate-blue + emerald accents
+   ============================================ */
+
+@theme {
+  /* === FONTS === */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* === LIGHT THEME COLORS === */
+  /* Backgrounds */
+  --color-surface-light: #fffdf7; /* Warm cream */
+  --color-surface-alt-light: #fef9ef; /* Slightly darker cream */
+  --color-card-light: #ffffff; /* Pure white for cards */
+
+  /* Text */
+  --color-text-primary-light: #1c1917; /* Warm black (stone-950) */
+  --color-text-secondary-light: #57534e; /* Warm gray (stone-600) */
+  --color-text-muted-light: #a8a29e; /* Light gray (stone-400) */
+
+  /* Accents */
+  --color-accent-light: #059669; /* Emerald-600 */
+  --color-accent-hover-light: #047857; /* Emerald-700 */
+  --color-accent-soft-light: #d1fae5; /* Emerald-100 */
+
+  /* Borders */
+  --color-border-light: #e7e5e4; /* Stone-200 */
+  --color-border-strong-light: #d6d3d1; /* Stone-300 */
+
+  /* === DARK THEME COLORS === */
+  /* Backgrounds */
+  --color-surface-dark: #0f172a; /* Deep blue-black (slate-950) */
+  --color-surface-alt-dark: #1e293b; /* Slate-800 */
+  --color-card-dark: #1e293b; /* Slate-800 */
+
+  /* Text */
+  --color-text-primary-dark: #f5f5f4; /* Warm white (stone-100) */
+  --color-text-secondary-dark: #a8a29e; /* Stone-400 */
+  --color-text-muted-dark: #78716c; /* Stone-500 */
+
+  /* Accents */
+  --color-accent-dark: #34d399; /* Emerald-400 */
+  --color-accent-hover-dark: #6ee7b7; /* Emerald-300 */
+  --color-accent-soft-dark: #064e3b; /* Emerald-950 */
+
+  /* Borders */
+  --color-border-dark: #334155; /* Slate-700 */
+  --color-border-strong-dark: #475569; /* Slate-600 */
+
+  /* === SEMANTIC COLORS (use these in components) === */
+  --color-success: #22c55e; /* Green-500 */
+  --color-warning: #f59e0b; /* Amber-500 */
+  --color-error: #ef4444; /* Red-500 */
+  --color-info: #3b82f6; /* Blue-500 */
+}
+
+/* === BASE STYLES === */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: var(--font-sans);
+  line-height: 1.6;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
@@ -30,39 +76,33 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* === UTILITY CLASSES FOR THEMING === */
+/* Light theme utilities */
+.theme-light {
+  --surface: var(--color-surface-light);
+  --surface-alt: var(--color-surface-alt-light);
+  --card: var(--color-card-light);
+  --text-primary: var(--color-text-primary-light);
+  --text-secondary: var(--color-text-secondary-light);
+  --text-muted: var(--color-text-muted-light);
+  --accent: var(--color-accent-light);
+  --accent-hover: var(--color-accent-hover-light);
+  --accent-soft: var(--color-accent-soft-light);
+  --border: var(--color-border-light);
+  --border-strong: var(--color-border-strong-light);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Dark theme utilities */
+.theme-dark {
+  --surface: var(--color-surface-dark);
+  --surface-alt: var(--color-surface-alt-dark);
+  --card: var(--color-card-dark);
+  --text-primary: var(--color-text-primary-dark);
+  --text-secondary: var(--color-text-secondary-dark);
+  --text-muted: var(--color-text-muted-dark);
+  --accent: var(--color-accent-dark);
+  --accent-hover: var(--color-accent-hover-dark);
+  --accent-soft: var(--color-accent-soft-dark);
+  --border: var(--color-border-dark);
+  --border-strong: var(--color-border-strong-dark);
 }

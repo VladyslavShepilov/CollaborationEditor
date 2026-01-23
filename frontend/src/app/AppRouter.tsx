@@ -1,13 +1,20 @@
 import { createBrowserRouter } from "react-router";
-import { GalleryPage, EditorPage } from "@/pages/text-editor";
+import { AppLayout } from "./ui/AppLayout";
+import { GalleryPage } from "@/pages/gallery";
+import { EditorPage } from "@/pages/editor";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <GalleryPage />,
-  },
-  {
-    path: "/editor/:id",
-    element: <EditorPage />,
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <GalleryPage />,
+      },
+      {
+        path: "/editor/:id",
+        element: <EditorPage />,
+      },
+    ],
   },
 ]);

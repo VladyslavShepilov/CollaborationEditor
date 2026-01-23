@@ -1,6 +1,5 @@
 import { useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { useTheme } from "@/shared/utils/useTheme";
 
 interface ModalProps {
   isOpen: boolean;
@@ -23,8 +22,6 @@ export function Modal({
   title,
   size = "md",
 }: ModalProps) {
-  const { isDark } = useTheme();
-
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -63,21 +60,18 @@ export function Modal({
 
       {/* Modal Content */}
       <div
-        className={`relative w-full ${SIZE_CLASSES[size]} mx-4 rounded-xl shadow-xl ${
-          isDark ? "bg-gray-800" : "bg-white"
-        }`}
+        className={`relative w-full ${SIZE_CLASSES[size]} mx-4 rounded-xl shadow-xl`}
+        style={{ backgroundColor: "var(--card)" }}
         onClick={(e) => e.stopPropagation()}
       >
         {title && (
           <div
-            className={`px-6 py-4 border-b ${
-              isDark ? "border-gray-700" : "border-gray-200"
-            }`}
+            className="px-6 py-4 border-b"
+            style={{ borderColor: "var(--border)" }}
           >
             <h2
-              className={`text-xl font-bold ${
-                isDark ? "text-white" : "text-gray-900"
-              }`}
+              className="text-xl font-bold"
+              style={{ color: "var(--text-primary)" }}
             >
               {title}
             </h2>

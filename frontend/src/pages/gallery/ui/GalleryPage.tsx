@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router";
 import { DocumentCard } from "@/entities/document";
 import { CreateDocumentButton } from "@/features/create-document";
-import { useTheme } from "@/shared/utils/useTheme";
 
 export function GalleryPage() {
   const navigate = useNavigate();
-  const { isDark } = useTheme();
 
   const handleDocumentClick = (id: string) => {
     navigate(`/editor/${id}`);
@@ -19,14 +17,11 @@ export function GalleryPage() {
   };
 
   return (
-    <div
-      className={`min-h-screen p-6 ${isDark ? "bg-gray-900" : "bg-gray-50"}`}
-    >
+    <div className="min-h-screen p-6">
       <div className="flex items-center justify-between mb-6">
         <h1
-          className={`text-2xl font-bold ${
-            isDark ? "text-white" : "text-gray-900"
-          }`}
+          className="text-2xl font-bold"
+          style={{ color: "var(--text-primary)" }}
         >
           Documents
         </h1>

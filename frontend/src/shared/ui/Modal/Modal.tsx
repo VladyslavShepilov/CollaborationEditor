@@ -1,18 +1,23 @@
-import { useEffect, useCallback } from "react";
+import { useRef, useEffect } from "react";
+import type { CSSProperties } from "react";
 import { createPortal } from "react-dom";
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-  title?: string;
-  size?: "sm" | "md" | "lg";
-}
+import { useTheme } from "@/shared/utils/useTheme";
 
-const SIZE_CLASSES = {
+import type { ModalProps, ModalStyleProps, ModalSize } from "./types";
+
+const SIZE_CLASSES: Record<ModalSize, string> = {
   sm: "max-w-sm",
   md: "max-w-md",
   lg: "max-w-lg",
+};
+
+const DEFAULT_STYLES: Required<ModalStyleProps> = {
+  backgroundColor: "var(--card)",
+  borderColor: "var(--border)",
+  titleColor: "var(--text-primary)",
+  textColor: "var(--text-primary)",
+  backdropColor: "rgba(0, 0, 0, 0.5)",
 };
 
 export function Modal({
@@ -21,66 +26,78 @@ export function Modal({
   children,
   title,
   size = "md",
+  className = "",
+  styles = {},
 }: ModalProps) {
-  const handleEscape = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    },
-    [onClose],
-  );
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const { isLight } = useTheme();
+  const mergedStyles = { ...DEFAULT_STYLES, ...styles };
+  const themeClass = isLight ? "theme-light" : "theme-dark";
 
   useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
     if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden";
+      dialog.showModal();
+    } else {
+      dialog.close();
     }
+  }, [isOpen]);
 
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "";
-    };
-  }, [isOpen, handleEscape]);
+  const handleCancel = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    onClose();
+  };
 
-  if (!isOpen) return null;
+  const dialogStyle: CSSProperties = {
+    backgroundColor: mergedStyles.backgroundColor,
+    borderColor: mergedStyles.borderColor,
+    color: mergedStyles.textColor,
+  };
 
   return createPortal(
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      role="dialog"
-      aria-modal="true"
+    <dialog
+      ref={dialogRef}
+      onCancel={handleCancel}
+      onClick={(e) => {
+        if (e.target === dialogRef.current) {
+          onClose();
+        }
+      }}
+      className={`${themeClass} fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full ${SIZE_CLASSES[size]} mx-4 rounded-xl shadow-2xl border p-0 backdrop:backdrop-blur-sm transition-colors ${className}`}
+      style={{
+        ...dialogStyle,
+        transitionDuration: "var(--transition-theme)",
+        // @ts-expect-error CSS custom property for backdrop
+        "--modal-backdrop-color": mergedStyles.backdropColor,
+      }}
     >
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={onClose}
-        aria-hidden="true"
-      />
+      <style>{`
+        dialog::backdrop {
+          background-color: var(--modal-backdrop-color, rgba(0, 0, 0, 0.5));
+          backdrop-filter: blur(4px);
+        }
+      `}</style>
 
-      {/* Modal Content */}
-      <div
-        className={`relative w-full ${SIZE_CLASSES[size]} mx-4 rounded-xl shadow-xl`}
-        style={{ backgroundColor: "var(--card)" }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {title && (
-          <div
-            className="px-6 py-4 border-b"
-            style={{ borderColor: "var(--border)" }}
+      {title && (
+        <div
+          className="px-6 py-4 border-b"
+          style={{ borderColor: mergedStyles.borderColor }}
+        >
+          <h2
+            className="text-xl font-bold"
+            style={{ color: mergedStyles.titleColor }}
           >
-            <h2
-              className="text-xl font-bold"
-              style={{ color: "var(--text-primary)" }}
-            >
-              {title}
-            </h2>
-          </div>
-        )}
+            {title}
+          </h2>
+        </div>
+      )}
 
-        <div className="p-6">{children}</div>
+      <div className="p-6" style={{ color: mergedStyles.textColor }}>
+        {children}
       </div>
-    </div>,
+    </dialog>,
     document.body,
   );
 }

@@ -14,6 +14,11 @@
   /* transitions */
   --transition-theme: 300ms;
 
+  /* sizes */
+  --size-avatar-sm: 5rem;
+  --size-avatar-md: 10rem;
+  --size-avatar-lg: 15rem;
+
   /* semantic colors (ALWAYS alias-based) */
   --color-surface: var(--surface);
   --color-surface-alt: var(--surface-alt);
@@ -104,6 +109,8 @@
 
   --toggle-track: var(--toggle-track-light);
   --toggle-track-active: var(--toggle-track-active-light);
+
+  --border-color: var(--color-red-950);
 }
 
 /* -----------------------------
@@ -128,6 +135,8 @@
 
   --toggle-track: var(--toggle-track-dark);
   --toggle-track-active: var(--toggle-track-active-dark);
+
+  --border-color: var(--accent-soft-light);
 }
 
 /* -----------------------------

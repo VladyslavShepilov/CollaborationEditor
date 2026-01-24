@@ -7,7 +7,7 @@ export function AppLayout() {
 
   return (
     <div
-      className={`min-h-screen transition-colors duration-[var(--transition-theme)] bg-[var(--surface)] ${
+      className={`min-h-screen transition-colors duration-[(--transition-theme)] bg-[(--surface)] ${
         isLight ? "theme-light" : "theme-dark"
       }`}
     >

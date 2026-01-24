@@ -1,110 +1,169 @@
 @import "tailwindcss";
 
-/* ============================================
-   DESIGN SYSTEM: "Warm Nature" Palette
+/* =====================================================
+   DESIGN SYSTEM — Warm Nature
+   ===================================================== */
 
-   Light: Warm cream/yellow + emerald accents
-   Dark: Deep slate-blue + emerald accents
-   ============================================ */
-
+/* -----------------------------
+   1. Tailwind semantic tokens
+   ----------------------------- */
 @theme {
-  /* === FONTS === */
+  /* fonts */
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
 
-  /* === TRANSITIONS === */
+  /* transitions */
   --transition-theme: 300ms;
 
-  /* === SEMANTIC COLORS (auto-switch via CSS vars) === */
+  /* semantic colors (ALWAYS alias-based) */
   --color-surface: var(--surface);
   --color-surface-alt: var(--surface-alt);
   --color-card: var(--card);
+
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
+
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-soft: var(--accent-soft);
+
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
+
   --color-toggle-track: var(--toggle-track);
   --color-toggle-track-active: var(--toggle-track-active);
 
-  /* === STATIC SEMANTIC COLORS === */
+  /* static semantics */
   --color-success: #22c55e;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-info: #3b82f6;
 }
 
-/* === THEME TOKENS (switch based on .dark class or system preference) === */
+/* -----------------------------
+   2. Palette
+   ----------------------------- */
 :root {
-  /* Light theme values */
-  --surface: #fffdf7;
-  --surface-alt: #fef9ef;
-  --card: #ffffff;
-  --text-primary: #1c1917;
-  --text-secondary: #57534e;
-  --text-muted: #a8a29e;
-  --accent: #059669;
-  --accent-hover: #047857;
-  --accent-soft: #d1fae5;
-  --border: #e7e5e4;
-  --border-strong: #d6d3d1;
-  --toggle-track: #e7e5e4;
-  --toggle-track-active: #d1fae5;
+  /* light palette */
+  --surface-light: #fffdf7;
+  --surface-alt-light: #fef9ef;
+  --card-light: #ffffff;
+
+  --text-primary-light: #1c1917;
+  --text-secondary-light: #57534e;
+  --text-muted-light: #a8a29e;
+
+  --accent-light: #059669;
+  --accent-hover-light: #047857;
+  --accent-soft-light: #d1fae5;
+
+  --border-light: #e7e5e4;
+  --border-strong-light: #d6d3d1;
+
+  --toggle-track-light: #e7e5e4;
+  --toggle-track-active-light: #d1fae5;
+
+  /* dark palette */
+  --surface-dark: #0f172a;
+  --surface-alt-dark: #1e293b;
+  --card-dark: #1e293b;
+
+  --text-primary-dark: #f5f5f4;
+  --text-secondary-dark: #a8a29e;
+  --text-muted-dark: #78716c;
+
+  --accent-dark: #34d399;
+  --accent-hover-dark: #6ee7b7;
+  --accent-soft-dark: #064e3b;
+
+  --border-dark: #334155;
+  --border-strong-dark: #475569;
+
+  --toggle-track-dark: #334155;
+  --toggle-track-active-dark: #064e3b;
 }
 
-/* Dark theme - via .dark class */
-.dark {
-  --surface: #0f172a;
-  --surface-alt: #1e293b;
-  --card: #1e293b;
-  --text-primary: #f5f5f4;
-  --text-secondary: #a8a29e;
-  --text-muted: #78716c;
-  --accent: #34d399;
-  --accent-hover: #6ee7b7;
-  --accent-soft: #064e3b;
-  --border: #334155;
-  --border-strong: #475569;
-  --toggle-track: #334155;
-  --toggle-track-active: #064e3b;
+/* -----------------------------
+   3.LIGHT
+   ----------------------------- */
+:root {
+  --surface: var(--surface-light);
+  --surface-alt: var(--surface-alt-light);
+  --card: var(--card-light);
+
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  --text-muted: var(--text-muted-light);
+
+  --accent: var(--accent-light);
+  --accent-hover: var(--accent-hover-light);
+  --accent-soft: var(--accent-soft-light);
+
+  --border: var(--border-light);
+  --border-strong: var(--border-strong-light);
+
+  --toggle-track: var(--toggle-track-light);
+  --toggle-track-active: var(--toggle-track-active-light);
 }
 
-/* Dark theme - via system preference (when no explicit class set) */
+/* -----------------------------
+   4.DARK
+   ----------------------------- */
+:root.dark,
+:root[data-theme="dark"] {
+  --surface: var(--surface-dark);
+  --surface-alt: var(--surface-alt-dark);
+  --card: var(--card-dark);
+
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  --text-muted: var(--text-muted-dark);
+
+  --accent: var(--accent-dark);
+  --accent-hover: var(--accent-hover-dark);
+  --accent-soft: var(--accent-soft-dark);
+
+  --border: var(--border-dark);
+  --border-strong: var(--border-strong-dark);
+
+  --toggle-track: var(--toggle-track-dark);
+  --toggle-track-active: var(--toggle-track-active-dark);
+}
+
+/* -----------------------------
+   5. System dark
+   ----------------------------- */
 @media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    --surface: #0f172a;
-    --surface-alt: #1e293b;
-    --card: #1e293b;
-    --text-primary: #f5f5f4;
-    --text-secondary: #a8a29e;
-    --text-muted: #78716c;
-    --accent: #34d399;
-    --accent-hover: #6ee7b7;
-    --accent-soft: #064e3b;
-    --border: #334155;
-    --border-strong: #475569;
-    --toggle-track: #334155;
-    --toggle-track-active: #064e3b;
+  :root:not(.light):not([data-theme]) {
+    --surface: var(--surface-dark);
+    --surface-alt: var(--surface-alt-dark);
+    --card: var(--card-dark);
+
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --text-muted: var(--text-muted-dark);
+
+    --accent: var(--accent-dark);
+    --accent-hover: var(--accent-hover-dark);
+    --accent-soft: var(--accent-soft-dark);
+
+    --border: var(--border-dark);
+    --border-strong: var(--border-strong-dark);
+
+    --toggle-track: var(--toggle-track-dark);
+    --toggle-track-active: var(--toggle-track-active-dark);
   }
 }
 
-/* === BASE STYLES === */
+/* -----------------------------
+   6. Base styles
+   ----------------------------- */
 html {
   font-family: var(--font-sans);
   line-height: 1.6;
-  font-weight: 400;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
   min-height: 100vh;
   background-color: var(--surface);
   color: var(--text-primary);

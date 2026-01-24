@@ -1,5 +1,5 @@
 import { Toggler } from "@/shared/ui";
-import { useTheme } from "@/shared/utils/useTheme";
+import { useTheme } from "../model/useTheme";
 import type { ThemeTogglerProps } from "./types";
 
 export function ThemeToggler({ className = "" }: ThemeTogglerProps) {

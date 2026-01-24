@@ -16,7 +16,7 @@ export function DocumentCard({
   return (
     <div
       onClick={() => onClick?.(id)}
-      className="aspect-square w-full rounded-xl p-4 flex flex-col items-center justify-between gap-2 cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border bg-[var(--card)] border-[var(--border)]"
+      className="aspect-square w-full rounded-xl p-4 flex flex-col items-center justify-between gap-2 cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border bg-card border-border"
     >
       <div className="flex-1 flex items-center justify-center overflow-hidden rounded-lg w-full">
         {previewImage ? (
@@ -26,16 +26,16 @@ export function DocumentCard({
             alt={title}
           />
         ) : (
-          <div className="w-full h-full rounded-lg flex items-center justify-center bg-[var(--surface-alt)]">
-            <span className="text-[var(--text-muted)]">No preview</span>
+          <div className="w-full h-full rounded-lg flex items-center justify-center bg-surface-alt">
+            <span className="text-text-muted">No preview</span>
           </div>
         )}
       </div>
       <div className="w-full text-center space-y-1">
-        <h2 className="font-semibold text-sm sm:text-base truncate text-[var(--text-primary)]">
+        <h2 className="font-semibold text-sm sm:text-base truncate text-text-primary">
           {title}
         </h2>
-        <p className="text-xs sm:text-sm truncate text-[var(--text-secondary)]">
+        <p className="text-xs sm:text-sm truncate text-text-secondary">
           {description}
         </p>
       </div>

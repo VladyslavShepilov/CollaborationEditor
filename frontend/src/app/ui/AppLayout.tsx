@@ -1,16 +1,9 @@
 import { Outlet } from "react-router";
 import { ThemeToggler } from "@/features/theme-toggler";
-import { useTheme } from "@/shared/utils/useTheme";
 
 export function AppLayout() {
-  const { isLight } = useTheme();
-
   return (
-    <div
-      className={`min-h-screen transition-colors duration-[(--transition-theme)] bg-[(--surface)] ${
-        isLight ? "theme-light" : "theme-dark"
-      }`}
-    >
+    <div className="min-h-screen transition-colors duration-(--transition-theme) bg-surface">
       <main>
         <Outlet />
       </main>

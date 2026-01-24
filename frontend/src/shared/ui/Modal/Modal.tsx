@@ -1,8 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-import { useTheme } from "@/shared/utils/useTheme";
-
 import type { ModalProps, ModalSize } from "./types";
 
 const SIZE_MAP: Record<ModalSize, string> = {
@@ -20,8 +18,6 @@ export function Modal({
   className = "",
 }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const { isLight } = useTheme();
-  const themeClass = isLight ? "theme-light" : "theme-dark";
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -50,11 +46,11 @@ export function Modal({
       ref={dialogRef}
       onCancel={handleCancel}
       onClick={handleClick}
-      className={`${themeClass} fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full ${SIZE_MAP[size]} mx-4 rounded-xl shadow-2xl border p-0 transition-colors duration-[(--transition-theme)] bg-[(--card)] border-[(--border)] text-[(--text-primary)] backdrop:backdrop-blur-sm backdrop:bg-black/50 ${className}`}
+      className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full ${SIZE_MAP[size]} mx-4 rounded-xl shadow-2xl border p-0 transition-colors duration-(--transition-theme) bg-card border-border text-text-primary backdrop:backdrop-blur-sm backdrop:bg-black/50 ${className}`}
     >
       {title && (
-        <div className="px-6 py-4 border-b border-[(--border)]">
-          <h2 className="text-xl font-bold text-[(--text-primary)]">{title}</h2>
+        <div className="px-6 py-4 border-b border-border">
+          <h2 className="text-xl font-bold text-text-primary">{title}</h2>
         </div>
       )}
 

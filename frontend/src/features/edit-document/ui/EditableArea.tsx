@@ -8,9 +8,9 @@ export function EditableArea({
   onContentChange,
 }: EditableAreaProps) {
   return (
-    <div className="min-h-screen w-full p-6 flex justify-center bg-[var(--surface)]">
+    <div className="min-h-screen w-full p-6 flex justify-center bg-surface">
       <div
-        className="w-[80%] min-h-[95vh] rounded-lg p-8 text-left outline-none border bg-[var(--card)] border-[var(--border)] text-[var(--text-primary)]"
+        className="w-[80%] min-h-[95vh] rounded-lg p-8 text-left outline-none border bg-card border-border text-text-primary"
         contentEditable={true}
         suppressContentEditableWarning={true}
         onInput={(e: React.FormEvent<HTMLDivElement>) => {

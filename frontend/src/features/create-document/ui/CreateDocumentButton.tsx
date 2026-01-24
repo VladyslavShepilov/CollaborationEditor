@@ -12,7 +12,7 @@ export function CreateDocumentButton({ onCreate }: CreateDocumentButtonProps) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors hover:opacity-90 bg-[var(--accent)] text-white"
+        className="px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors hover:opacity-90 bg-accent text-white"
       >
         <span className="text-xl leading-none">+</span>
         New Document

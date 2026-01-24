@@ -7,7 +7,7 @@ export function ThemeToggler({ className = "" }: ThemeTogglerProps) {
 
   return (
     <div
-      className={`overflow-hidden rounded p-2 transition-colors duration-[(--transition-theme)] bg-[(--accent-soft)] ${className}`}
+      className={`overflow-hidden rounded p-2 transition-colors duration-(--transition-theme) bg-accent-soft ${className}`}
     >
       <Toggler
         checked={isLight}

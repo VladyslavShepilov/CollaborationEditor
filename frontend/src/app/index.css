@@ -13,57 +13,86 @@
   --font-heading: "Inter", system-ui, -apple-system, sans-serif;
 
   /* === TRANSITIONS === */
-  --transition-theme: 300ms; /* Theme switch duration - change this to speed up/slow down */
+  --transition-theme: 300ms;
 
-  /* === LIGHT THEME COLORS === */
-  /* Backgrounds */
-  --color-surface-light: #fffdf7; /* Warm cream */
-  --color-surface-alt-light: #fef9ef; /* Slightly darker cream */
-  --color-card-light: #ffffff; /* Pure white for cards */
+  /* === SEMANTIC COLORS (auto-switch via CSS vars) === */
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-card: var(--card);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-toggle-track: var(--toggle-track);
+  --color-toggle-track-active: var(--toggle-track-active);
 
-  /* Text */
-  --color-text-primary-light: #1c1917; /* Warm black (stone-950) */
-  --color-text-secondary-light: #57534e; /* Warm gray (stone-600) */
-  --color-text-muted-light: #a8a29e; /* Light gray (stone-400) */
+  /* === STATIC SEMANTIC COLORS === */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+}
 
-  /* Accents */
-  --color-accent-light: #059669; /* Emerald-600 */
-  --color-accent-hover-light: #047857; /* Emerald-700 */
-  --color-accent-soft-light: #d1fae5; /* Emerald-100 */
+/* === THEME TOKENS (switch based on .dark class or system preference) === */
+:root {
+  /* Light theme values */
+  --surface: #fffdf7;
+  --surface-alt: #fef9ef;
+  --card: #ffffff;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #a8a29e;
+  --accent: #059669;
+  --accent-hover: #047857;
+  --accent-soft: #d1fae5;
+  --border: #e7e5e4;
+  --border-strong: #d6d3d1;
+  --toggle-track: #e7e5e4;
+  --toggle-track-active: #d1fae5;
+}
 
-  /* Borders */
-  --color-border-light: #e7e5e4; /* Stone-200 */
-  --color-border-strong-light: #d6d3d1; /* Stone-300 */
+/* Dark theme - via .dark class */
+.dark {
+  --surface: #0f172a;
+  --surface-alt: #1e293b;
+  --card: #1e293b;
+  --text-primary: #f5f5f4;
+  --text-secondary: #a8a29e;
+  --text-muted: #78716c;
+  --accent: #34d399;
+  --accent-hover: #6ee7b7;
+  --accent-soft: #064e3b;
+  --border: #334155;
+  --border-strong: #475569;
+  --toggle-track: #334155;
+  --toggle-track-active: #064e3b;
+}
 
-  /* === DARK THEME COLORS === */
-  /* Backgrounds */
-  --color-surface-dark: #0f172a; /* Deep blue-black (slate-950) */
-  --color-surface-alt-dark: #1e293b; /* Slate-800 */
-  --color-card-dark: #1e293b; /* Slate-800 */
-
-  /* Text */
-  --color-text-primary-dark: #f5f5f4; /* Warm white (stone-100) */
-  --color-text-secondary-dark: #a8a29e; /* Stone-400 */
-  --color-text-muted-dark: #78716c; /* Stone-500 */
-
-  /* Accents */
-  --color-accent-dark: #34d399; /* Emerald-400 */
-  --color-accent-hover-dark: #6ee7b7; /* Emerald-300 */
-  --color-accent-soft-dark: #064e3b; /* Emerald-950 */
-
-  /* Borders */
-  --color-border-dark: #334155; /* Slate-700 */
-  --color-border-strong-dark: #475569; /* Slate-600 */
-
-  /* === SEMANTIC COLORS (use these in components) === */
-  --color-success: #22c55e; /* Green-500 */
-  --color-warning: #f59e0b; /* Amber-500 */
-  --color-error: #ef4444; /* Red-500 */
-  --color-info: #3b82f6; /* Blue-500 */
+/* Dark theme - via system preference (when no explicit class set) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --surface: #0f172a;
+    --surface-alt: #1e293b;
+    --card: #1e293b;
+    --text-primary: #f5f5f4;
+    --text-secondary: #a8a29e;
+    --text-muted: #78716c;
+    --accent: #34d399;
+    --accent-hover: #6ee7b7;
+    --accent-soft: #064e3b;
+    --border: #334155;
+    --border-strong: #475569;
+    --toggle-track: #334155;
+    --toggle-track-active: #064e3b;
+  }
 }
 
 /* === BASE STYLES === */
-:root {
+html {
   font-family: var(--font-sans);
   line-height: 1.6;
   font-weight: 400;
@@ -77,57 +106,9 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-}
-
-/* === UTILITY CLASSES FOR THEMING === */
-/* Light theme utilities */
-.theme-light {
-  /* Backgrounds */
-  --surface: var(--color-surface-light);
-  --surface-alt: var(--color-surface-alt-light);
-  --card: var(--color-card-light);
-
-  /* Text */
-  --text-primary: var(--color-text-primary-light);
-  --text-secondary: var(--color-text-secondary-light);
-  --text-muted: var(--color-text-muted-light);
-
-  /* Accents */
-  --accent: var(--color-accent-light);
-  --accent-hover: var(--color-accent-hover-light);
-  --accent-soft: var(--color-accent-soft-light);
-
-  /* Borders */
-  --border: var(--color-border-light);
-  --border-strong: var(--color-border-strong-light);
-
-  /* Components */
-  --toggle-track: var(--color-border-light);
-  --toggle-track-active: var(--color-accent-soft-light);
-}
-
-/* Dark theme utilities */
-.theme-dark {
-  /* Backgrounds */
-  --surface: var(--color-surface-dark);
-  --surface-alt: var(--color-surface-alt-dark);
-  --card: var(--color-card-dark);
-
-  /* Text */
-  --text-primary: var(--color-text-primary-dark);
-  --text-secondary: var(--color-text-secondary-dark);
-  --text-muted: var(--color-text-muted-dark);
-
-  /* Accents */
-  --accent: var(--color-accent-dark);
-  --accent-hover: var(--color-accent-hover-dark);
-  --accent-soft: var(--color-accent-soft-dark);
-
-  /* Borders */
-  --border: var(--color-border-dark);
-  --border-strong: var(--color-border-strong-dark);
-
-  /* Components */
-  --toggle-track: var(--color-border-dark);
-  --toggle-track-active: var(--color-accent-soft-dark);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  transition:
+    background-color var(--transition-theme),
+    color var(--transition-theme);
 }

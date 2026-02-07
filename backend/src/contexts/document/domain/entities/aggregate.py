@@ -5,6 +5,10 @@ from dataclasses import dataclass, field
 from .crdt import Char, CharId
 
 
+class InvalidRangeException(Exception):
+    pass
+
+
 @dataclass
 class Document:
     """
@@ -20,11 +24,29 @@ class Document:
 
     # Handle cases when parent delivered later than children
     pending_children: dict[CharId, list[Char]] = field(default_factory=dict)
+    pending_delete: list[CharId] = field(default_factory=list)
+
     _char_index: dict[CharId, int] = field(default_factory=dict, repr=False)
 
     def __post_init__(self) -> None:
         self.allowed_to_modify.add(self.owner_id)
         self._rebuild_index()
+
+    def _process_pending_children(self, parent_id: CharId) -> None:
+        if parent_id not in self.pending_children:
+            return
+        children = self.pending_children.pop(parent_id)
+        for child in children:
+            self.insert(child)
+
+    def _process_pending_deletes(self) -> None:
+        remaining = []
+        for char_id in self.pending_delete:
+            if self.find_index(char_id) is not None:
+                self.delete(char_id)
+            else:
+                remaining.append(char_id)
+        self.pending_delete = remaining
 
     def _rebuild_index(self) -> None:
         self._char_index = {ch.char_id: i for i, ch in enumerate(self.content)}
@@ -60,18 +82,36 @@ class Document:
         return insert_index
 
     def insert(self, new_char: Char) -> int | None:
+        """
+        Inserts into the document following CRDT.
+        Returns int if char was inserted, 'None' otherwise.
+        """
         # if already exists, return existing index
+
         if (existing_char_index := self.find_index(new_char.char_id)) is not None:
             return existing_char_index
 
         # No parent_id means insert at head
+
         if new_char.parent_id is None:
-            return self._insert_after_parent(-1, new_char)
-
+            insert_index = self._insert_after_parent(-1, new_char)
         # If parent is present, insert after it
-        if (parent_index := self.find_index(new_char.parent_id)) is not None:
-            return self._insert_after_parent(parent_index, new_char)
 
+        elif (parent_index := self.find_index(new_char.parent_id)) is not None:
+            insert_index = self._insert_after_parent(parent_index, new_char)
         # Parent has not yet arrived - add to pending
-        self.pending_children.setdefault(new_char.parent_id, []).append(new_char)
-        return None
+        else:
+            self.pending_children.setdefault(new_char.parent_id, []).append(new_char)
+            return None
+
+        self._process_pending_children(new_char.char_id)
+        self._process_pending_deletes()
+        return insert_index
+
+    def delete(self, char_id: CharId) -> Char | None:
+        if (delete_index := self.find_index(char_id)) is None:
+            self.pending_delete.append(char_id)
+            return None
+
+        self.content[delete_index].deleted = True
+        return self.content[delete_index]

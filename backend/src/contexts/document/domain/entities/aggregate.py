@@ -17,43 +17,22 @@ class Document:
 
     id: int
     owner_id: int
-    allowed_to_modify: set[int] = field(default_factory=set)
+    allowed_to_modify: set[int] = field(default_factory=lambda: set())
     version: int = 0
 
-    content: list[Char] = field(default_factory=list)
+    content: list[Char] = field(default_factory=lambda: [])
 
     # Handle cases when parent delivered later than children
-    pending_children: dict[CharId, list[Char]] = field(default_factory=dict)
-    pending_delete: list[CharId] = field(default_factory=list)
+    pending_children: dict[CharId, list[Char]] = field(default_factory=lambda: {})
+    pending_delete: list[CharId] = field(default_factory=lambda: [])
 
-    _char_index: dict[CharId, int] = field(default_factory=dict, repr=False)
+    _char_index: dict[CharId, int] = field(default_factory=lambda: {}, repr=False)
 
     def __post_init__(self) -> None:
         self.allowed_to_modify.add(self.owner_id)
         self._rebuild_index()
 
-    def _process_pending_children(self, parent_id: CharId) -> None:
-        if parent_id not in self.pending_children:
-            return
-        children = self.pending_children.pop(parent_id)
-        for child in children:
-            self.insert(child)
-
-    def _process_pending_deletes(self) -> None:
-        remaining = []
-        for char_id in self.pending_delete:
-            if self.find_index(char_id) is not None:
-                self.delete(char_id)
-            else:
-                remaining.append(char_id)
-        self.pending_delete = remaining
-
-    def _rebuild_index(self) -> None:
-        self._char_index = {ch.char_id: i for i, ch in enumerate(self.content)}
-
-    def _update_index_from(self, start_index: int) -> None:
-        for i in range(start_index, len(self.content)):
-            self._char_index[self.content[i].char_id] = i
+    # ================ Public helpers ================
 
     def find_index(self, char_id: CharId) -> int | None:
         return self._char_index.get(char_id)
@@ -67,19 +46,7 @@ class Document:
     def has_char(self, char_id: CharId) -> bool:
         return char_id in self._char_index
 
-    def _insert_after_parent(self, parent_index: int, new_char: Char) -> int:
-        search_start = parent_index + 1
-
-        for i, char in enumerate(self.content[search_start:], start=search_start):
-            if char.parent_id == new_char.parent_id and char.char_id > new_char.char_id:
-                self.content.insert(i, new_char)
-                self._update_index_from(i)
-                return i
-
-        self.content.append(new_char)
-        insert_index = len(self.content) - 1
-        self._char_index[new_char.char_id] = insert_index
-        return insert_index
+    # ================ Core insert&delete operations ================
 
     def insert(self, new_char: Char) -> int | None:
         """
@@ -115,3 +82,44 @@ class Document:
 
         self.content[delete_index].deleted = True
         return self.content[delete_index]
+
+    # ================ Pending children handlers for insert/delete ================
+
+    def _process_pending_children(self, parent_id: CharId) -> None:
+        if parent_id not in self.pending_children:
+            return
+        children = self.pending_children.pop(parent_id)
+        for child in children:
+            self.insert(child)
+
+    def _process_pending_deletes(self) -> None:
+        remaining: list[CharId] = []
+        for char_id in self.pending_delete:
+            if self.find_index(char_id) is not None:
+                self.delete(char_id)
+            else:
+                remaining.append(char_id)
+        self.pending_delete = remaining
+
+    def _insert_after_parent(self, parent_index: int, new_char: Char) -> int:
+        search_start = parent_index + 1
+
+        for i, char in enumerate(self.content[search_start:], start=search_start):
+            if char.parent_id == new_char.parent_id and char.char_id > new_char.char_id:
+                self.content.insert(i, new_char)
+                self._update_index_from(i)
+                return i
+
+        self.content.append(new_char)
+        insert_index = len(self.content) - 1
+        self._char_index[new_char.char_id] = insert_index
+        return insert_index
+
+    # ================ Update index operations ================
+
+    def _rebuild_index(self) -> None:
+        self._char_index = {ch.char_id: i for i, ch in enumerate(self.content)}
+
+    def _update_index_from(self, start_index: int) -> None:
+        for i in range(start_index, len(self.content)):
+            self._char_index[self.content[i].char_id] = i

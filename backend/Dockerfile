@@ -19,4 +19,4 @@ COPY src ./src
 EXPOSE 8000
 
 # Run with hot reload for development
-CMD ["uv", "run", "uvicorn", "app.main:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000", "--reload", "--reload-dir", "src"]
+CMD ["uv", "run", "uvicorn", "drivers.rest.main:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000", "--reload", "--reload-dir", "src"]

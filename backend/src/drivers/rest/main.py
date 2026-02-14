@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routers import utils_router
+from drivers.rest.routers import utils_router
 
 
 def create_app() -> FastAPI:

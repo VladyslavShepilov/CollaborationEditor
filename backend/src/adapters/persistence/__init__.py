@@ -1,4 +1,4 @@
-from .in_memory_store import InMemoryStore
+from .memory import InMemoryStore
 
 __all__ = [
     "InMemoryStore",

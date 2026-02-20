@@ -7,12 +7,15 @@ class InMemoryWriteRepository(DocumentWriteRepository):
     def __init__(self, store: InMemoryStore[Document]) -> None:
         self._store = store
 
+    async def create(self, document: Document) -> int:
+        document.id = self._store.next_id()
+        self._store.documents.append(document)
+        return document.id
+
     async def save(self, document: Document) -> int:
         for i, doc in enumerate(self._store.documents):
             if doc.id == document.id:
                 self._store.documents[i] = document
                 return i
 
-        document.id = self._store.next_id()
-        self._store.documents.append(document)
-        return len(self._store.documents)
+        raise ValueError(f"Document with id {document.id} not found")

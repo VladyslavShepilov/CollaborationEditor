@@ -7,11 +7,14 @@ class InMemoryReadRepository(DocumentReadRepository):
     def __init__(self, store: InMemoryStore[Document]) -> None:
         self._store = store
 
-    async def get(self, document_id: int) -> Document | None:
-        if document_id + 1 > len(self._store.documents) + 1:
-            return None
+    async def get_by_id(self, document_id: int) -> Document | None:
+        return self._find_by_id(document_id)
 
-        return self._store.documents[document_id]
+    def _find_by_id(self, document_id: int) -> Document | None:
+        for doc in self._store.documents:
+            if doc.id == document_id:
+                return doc
+        return None
 
     async def get_by_user_id(self, user_id: int) -> list[Document] | None:
         user_documents = [

@@ -17,6 +17,8 @@ class Document:
 
     id: int
     owner_id: int
+    title: str = ""
+    description: str = ""
     allowed_to_modify: set[int] = field(default_factory=lambda: set())
     version: int = 0
 

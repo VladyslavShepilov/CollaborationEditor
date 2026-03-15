@@ -1,19 +1,19 @@
 .PHONY: dev down build update-schema-frontend
 
 up:
-	docker-compose up -d
+	docker compose up -d
 
 # Start development environment
 dev:
-	docker-compose up --build
+	docker compose up --build
 
 # Stop all containers
 down:
-	docker-compose down
+	docker compose down
 
 # Build without starting
 build:
-	docker-compose build
+	docker compose build
 
 update-schema-frontend:
 	cd backend && uv run python -c "import json; from main import app; print(json.dumps(app.openapi()))" > ../frontend/src/openapi.json

@@ -1,4 +1,7 @@
 from application.commands.schemas.document_write_schemas import SaveDocumentCommand
+from ports.repositories.document_persistence_repository import (
+    DocumentPersistenceRepository,
+)
 from ports.repositories.document_read_repository import DocumentReadRepository
 from ports.repositories.document_write_repository import DocumentWriteRepository
 
@@ -8,9 +11,11 @@ class SaveDocumentHandler:
         self,
         document_write_repository: DocumentWriteRepository,
         document_read_repository: DocumentReadRepository,
+        document_persistence_repository: DocumentPersistenceRepository,
     ) -> None:
         self.document_write_repository = document_write_repository
         self.document_read_repository = document_read_repository
+        self.document_persistence_repository = document_persistence_repository
 
     async def handle(self, command: SaveDocumentCommand) -> int:
         existing_document = await self.document_read_repository.get_by_id(
@@ -21,4 +26,5 @@ class SaveDocumentHandler:
 
         existing_document.title = command.title
         existing_document.description = command.description
-        return await self.document_write_repository.save(existing_document)
+        await self.document_write_repository.save(existing_document)
+        return await self.document_persistence_repository.save(existing_document)

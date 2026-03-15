@@ -1,4 +1,5 @@
 from adapters.persistence.in_memory import InMemoryStore
+from domain.entities.crdt import Char, CharId
 from domain.entities.document import Document
 from ports.repositories.document_write_repository import DocumentWriteRepository
 
@@ -19,3 +20,9 @@ class InMemoryWriteRepository(DocumentWriteRepository):
                 return i
 
         raise ValueError(f"Document with id {document.id} not found")
+
+    async def insert_char(self, document: Document, char: Char) -> Char | None:
+        return document.insert(char)
+
+    async def delete_char(self, document: Document, char_id: CharId) -> Char | None:
+        return document.delete(char_id)

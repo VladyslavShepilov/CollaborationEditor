@@ -4,9 +4,9 @@ import { Provider } from "react-redux";
 import { store } from "@/app/store";
 import "@/app/index.css";
 import { App } from "@/app/App.tsx";
-import { OpenAPI } from "@/shared/api/generated";
+import { configureApiClientFromEnv } from "@/shared/api/client";
 
-OpenAPI.BASE = import.meta.env.VITE_API_URL ?? "";
+configureApiClientFromEnv();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

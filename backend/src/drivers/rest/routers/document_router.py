@@ -22,7 +22,7 @@ from drivers.rest.schemas.document.write import (
     SaveDocumentResponse,
 )
 
-router = APIRouter()
+router = APIRouter(tags=["Documents"])
 
 
 @router.post("/documents", response_model=CreateDocumentResponse)
